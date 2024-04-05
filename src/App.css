@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+header ul li {
+    @apply px-4
+}
+
+.bg-primary {
+    background: rgb(46, 46, 56);
+}
+
+.bg-secondary {
+    background: #0de57d;
+}
+
+.bg-about {
+    background: #5151b1;
+}
+
+.bg-project {
+    background: #a54cf8;
+}
+
+.bg-contact {
+    background: #c892d4;
+}
+
+.mobile-nav {
+    @apply fixed top-10 left-0 bg-gray-800 w-full h-1/4 ;
+}
+
+.mobile-nav li {
+    @apply w-full h-full text-center border-b-2 py-2 text-white;
+}
+
+.project-desc {
+    @apply absolute left-0 right-0 bottom-0 top-0 bg-secondary opacity-0 duration-700 hover:opacity-100;
+}
+
+.btn {
+    @apply bg-project px-5 py-3 text-white font-bold hover:border-2 border-white rounded;
+}
+
+html {
+    scroll-behavior: smooth;
+}
