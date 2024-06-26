@@ -20,7 +20,7 @@ export default function Hero() {
         <h1 
           className = "text-black text-3xl font-hero-font mt-10"
         >
-          Hi, <br /> I am  <span className="text-white "> Sk !!!</span> Sarujan
+          Hi, <br /> I am  <span className="text-white "> Thevaraja </span> Sarujan
             <p className="text-6xl font-developer py-5 font-bold"> {config.subTitle} </p>
         </h1>
 
