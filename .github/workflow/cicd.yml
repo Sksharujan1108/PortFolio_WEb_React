@@ -1,0 +1,35 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - deploy-to-ec2  # Corrected branch name for trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Image
+        run: docker build -t sarujansk/react-new-project-app .
+
+      - name: Push Docker Image
+        run: docker push sarujansk/react-new-project-app:latest
+
+  deploy:
+    needs: build
+    run-on: aws-ec2    
+    steps:
+      - name: Pull Image From Docker Hub
+        run: docker pull sarujansk/react-new-project-app:latest
+      - name: Delete Old Container
+        run: docker rm -f reactContainer
+      - name: Run Docker Container
+        run: docker run -d -p 3000:80 --name reactContainer sarujansk/react-new-project-app
+
