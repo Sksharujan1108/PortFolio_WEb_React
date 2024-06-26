@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
-      - deploy-to-ec2  # Corrected branch name for trigger
+      - deploy/ec2  # Corrected branch name for trigger
 
 jobs:
   build:
@@ -14,7 +14,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        # run: echo "${{ Sk_sharu%2708 }}" | docker login -u "${{ sksharujan27@gmail.com }}" --password-stdin
 
       - name: Build Docker Image
         run: docker build -t sarujansk/react-new-project-app .
@@ -24,12 +25,15 @@ jobs:
 
   deploy:
     needs: build
-    run-on: aws-ec2    
+    runs-on: self-hosted  # Use self-hosted runner
     steps:
       - name: Pull Image From Docker Hub
         run: docker pull sarujansk/react-new-project-app:latest
+
       - name: Delete Old Container
-        run: docker rm -f reactContainer
+        run: docker rm -f reactContainer || true  # Ignore error if container does not exist
+
       - name: Run Docker Container
         run: docker run -d -p 3000:80 --name reactContainer sarujansk/react-new-project-app
 
+# Sk Sharu =====
