@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
-      - deploy-to-ec2  # Corrected branch name for trigger
+      - deploy/ec2  # Corrected branch name for trigger
 
 jobs:
   build:
